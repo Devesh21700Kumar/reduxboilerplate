@@ -4,12 +4,14 @@ const axios = require('axios')
 const createStore = redux.createStore
 const applyMiddleware = redux.applyMiddleware
 
+// State initialised
 const initialState = {
   loading: false,
   users: [],
   error: ''
 }
 
+// Actions Defined Here
 const FETCH_USERS_REQUEST = 'FETCH_USERS_REQUEST'
 const FETCH_USERS_SUCCESS = 'FETCH_USERS_SUCCESS'
 const FETCH_USERS_FAILURE = 'FETCH_USERS_FAILURE'
@@ -34,6 +36,7 @@ const fetchUsersFailure = error => {
   }
 }
 
+// Action dispatched here
 const fetchUsers = () => {
   return function (dispatch) {
     dispatch(fetchUsersRequest())
@@ -51,6 +54,7 @@ const fetchUsers = () => {
   }
 }
 
+// Reducer with initials state and action here
 const reducer = (state = initialState, action) => {
   console.log(action.type)
   switch (action.type) {
@@ -74,6 +78,7 @@ const reducer = (state = initialState, action) => {
   }
 }
 
+// Store and subscription
 const store = createStore(reducer, applyMiddleware(thunkMiddleware))
 store.subscribe(() => { console.log(store.getState()) })
 store.dispatch(fetchUsers())
